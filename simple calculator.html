@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: comic sans, sans-serif;
+            text-align: center;
+            background-color: #ff98fc;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #000000;
+
+        }
+
+        td {
+            padding: 10px;
+            border: 3px solid #00ff00;
+        }
+
+        button[type="button"] {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            background-color: #d5caca;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #f07007;
+        }
+
+        #result {
+            width: 200px;
+            height: 30px;
+            font-size: 24px;
+            padding: 10px;
+            border: 1px solid #b12aac;
+            border-radius: 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+    <form>
+        <table>
+            <tr>
+                <td colspan="4">
+                    <input type="text" id="result" readonly>
+                    <button type="button" id="clear">C</button>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" value="7">7</button></td>
+                <td><button type="button" value="8">8</button></td>
+                <td><button type="button" value="9">9</button></td>
+                <td><button type="button" value="/">/</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" value="4">4</button></td>
+                <td><button type="button" value="5">5</button></td>
+                <td><button type="button" value="6">6</button></td>
+                <td><button type="button" value="*">*</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" value="1">1</button></td>
+                <td><button type="button" value="2">2</button></td>
+                <td><button type="button" value="3">3</button></td>
+                <td><button type="button" value="-">-</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" value="0">0</button></td>
+                <td><button type="button" value=".">.</button></td>
+                <td><button type="button" value="=">=</button></td>
+                <td><button type="button" value="+">+</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        let result = document.getElementById('result');
+        let buttons = document.querySelectorAll('button[type="button"]');
+        let clearButton = document.getElementById('clear');
+
+        let currentOperation = '';
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                let value = button.value;
+
+                if (value === '=') {
+                    try {
+                        result.value = eval(currentOperation);
+                        currentOperation = result.value;
+                    } catch (e) {
+                        result.value = 'Error';
+                    }
+                } else if (value === 'C') {
+                    result.value = '';
+                    currentOperation = '';
+                } else {
+                    currentOperation += value;
+                    result.value = currentOperation;
+                }
+            });
+        });
+
+        clearButton.addEventListener('click', () => {
+            result.value = '';
+            currentOperation = '';
+        });
+    </script>
+</body>
+</html>
